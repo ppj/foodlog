@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, except: [:new, :create]
+  before_action :set_user, except: [:new, :create, :index]
+
+  before_action :match_user, only: [:edit]
 
   def new
     @user = User.new
@@ -36,6 +38,10 @@ class UsersController < ApplicationController
   def show
   end
 
+  def index
+    @users = User.all
+  end
+
   private
 
   def set_user
@@ -44,6 +50,13 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit!
+  end
+
+  def match_user
+    unless @user == current_user
+      flash[:danger] = "You do not have permission to do that."
+      redirect_to user_path(@user)
+    end
   end
 
 end
