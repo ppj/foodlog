@@ -1,4 +1,4 @@
-<h3>Welcome, <%= link_to @user.firstname, user_path(@user) %>!</h3>
+<%= render 'shared/title', title: "Welcome, #{@user.firstname}" %>
 
 <p>
   <% if @user.meals.any? %>
