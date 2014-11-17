@@ -43,3 +43,7 @@ gem 'pry', group: [:development, :test]
 
 #
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
+
+# Twitter Bootstrap
+gem 'bootstrap-sass', '~> 3.3.1'
+gem 'autoprefixer-rails'
