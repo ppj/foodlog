@@ -1,9 +1,46 @@
-<%= form_for @user do |f| %>
-  <div>
-    <%= f.label :username %>
-    <%= f.text_field :username %>
-    <br>
-    <%= f.submit %>
-  </div>
-
-<% end %>
+<div class='well'>
+  <%= render 'shared/errors', model_obj: @user %>
+  <%= form_for @user, html: {class: 'form-horizontal', role: 'form'} do |f| %>
+    <div class='form-group'>
+      <%= f.label :firstname, 'First Name', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.text_field :firstname, class: 'form-control', placeholder: 'First Name' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :lastname, 'Last Name', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.text_field :lastname, class: 'form-control', placeholder: 'Last Name'  %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :email, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.text_field :email, class: 'form-control', placeholder: 'Email'  %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :username, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.text_field :username, class: 'form-control', placeholder: 'Username'  %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :password, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.password_field :password, class: 'form-control' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :timezone, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.time_zone_select :timezone, nil, default: Time.zone.name, class: 'form-control' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <div class='col-sm-offset-2 col-sm-3'>
+        <%= f.submit @user.new_record? ? "Register" : "Update Profile", class: 'btn btn-primary'%>
+      </div>
+    </div>
+  <% end %>
+</div>

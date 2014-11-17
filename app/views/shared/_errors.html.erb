@@ -1,0 +1,12 @@
+<% if model_obj.errors.any? %>
+  <div class='row'>
+    <div class='alert alert-danger'>
+      <h5>Please fix the errors below to submit successfully:</h5>
+      <ol>
+        <% model_obj.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ol>
+    </div>
+  </div>
+<% end %>
