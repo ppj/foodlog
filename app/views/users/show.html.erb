@@ -1,4 +1,4 @@
-<%= render 'shared/title', title: "Welcome, #{@user.firstname}" %>
+<%= render 'shared/title', title: "Welcome, #{@user.firstname.empty? ? @user.username : @user.firstname}" %>
 
 <p>
   <% if @user.meals.any? %>
