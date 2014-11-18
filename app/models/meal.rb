@@ -4,6 +4,6 @@ class Meal < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :description, length: {minimum: 5}
+  validates :title, length: {minimum: 3}
 
 end

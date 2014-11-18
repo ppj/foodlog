@@ -1,0 +1,34 @@
+<div class='well'>
+  <%= render 'shared/errors', model_obj: @meal %>
+  <%= form_for @meal, html: {class: 'form-horizontal', role: 'form'} do |f| %>
+    <div class='form-group'>
+      <%= f.label :title, 'Title', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-4'>
+        <%= f.text_field :title, class: 'form-control', placeholder: 'Lunch Outside/Family Brunch/Picnic/Jamie\'s recipe' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :category, class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.select :category, options_for_select(['Coffee/Tea', 'Breakfast', 'Brunch', 'Snack', 'Lunch', 'Dinner', 'Supper' ]), class: 'form-control' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :time, 'Date & Time', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-3'>
+        <%= f.datetime_select :time, class: 'form-control' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :description, 'Notes', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-4'>
+        <%= f.text_area :description, class: 'form-control', placeholder: 'Additional notes about the meal' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <div class='col-sm-offset-2 col-sm-3'>
+        <%= f.submit @meal.new_record? ? "Add Meal" : "Change Meal", class: 'btn btn-primary'%>
+      </div>
+    </div>
+  <% end %>
+</div>
