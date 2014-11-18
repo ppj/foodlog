@@ -1,12 +1,3 @@
-<%= render 'shared/title', title: "Welcome, #{@user.firstname.empty? ? @user.username : @user.firstname}" %>
+<%= render 'shared/title', title: "#{@user.firstname.empty? ? @user.username : @user.firstname}'s Meals" %>
 
-<p>
-  <% if @user.meals.any? %>
-    Your Meals:
-  <% end %>
-  <ul>
-    <% @user.meals.each do |meal| %>
-      <li><%= meal.category %>: <%= meal.description %></li>
-    <% end %>
-  </ul>
-</p>
+<%= render 'shared/meals', list: @user.meals %>

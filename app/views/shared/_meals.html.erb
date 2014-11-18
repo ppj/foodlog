@@ -1,0 +1,14 @@
+
+<% list.each do |meal| %>
+  <div class='row'>
+    <div class='span8 well'>
+      <span class='badge'><%= meal.category %></span>
+      <h4><%= link_to meal.title, meal_path(meal) %></h4>
+      <p><%= meal.description %></p>
+      <p>
+        <%= render 'shared/footer', item: meal %>
+      </p>
+    </div>
+  </div>
+<% end %>
+

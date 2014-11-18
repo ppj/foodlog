@@ -5,7 +5,7 @@ class MealsController < ApplicationController
   before_action :require_creator_or_admin, only:   [:edit, :update, :destroy]
 
   def index
-    @meals = Meal.all.sort_by{|x| x.updated_at}.reverse
+    @meals = Meal.all.sort_by{|x| x.time}.reverse
     respond_to do |format|
       format.html
       format.json {render json: @posts}
@@ -28,7 +28,7 @@ class MealsController < ApplicationController
 
   def create
     @meal = Meal.new(meal_params)
-    @meal.user = current_user
+    @meal.creator = current_user
 
     if @meal.save
       flash[:success] = "Meal added successfully!"
@@ -54,7 +54,10 @@ class MealsController < ApplicationController
   end
 
   def destroy
-
+    if @meal.destroy
+      flash[:info] = "Meal was deleted"
+      redirect_to root_path
+    end
   end
 
   private
@@ -68,7 +71,7 @@ class MealsController < ApplicationController
   end
 
   def require_creator_or_admin
-    access_denied "You cannot make changes to this meal!" unless logged_in? and (current_user == @meal.user or current_user.admin?)
+    access_denied "You cannot make changes to this meal!" unless logged_in? and (current_user == @meal.creator or current_user.admin?)
   end
 
 end

@@ -1,7 +1,4 @@
 <%= render 'shared/title', title: "Recent Meals" %>
 
-<ul>
-  <% @meals.each do |meal| %>
-    <li><%= link_to meal.title, meal_path(meal) %></li>
-  <% end %>
-</ul>
+<%= render 'shared/meals', list: @meals %>
+
