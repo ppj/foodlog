@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+  include Slugable
+  set_slug_column_to :username
+
   has_many :meals, dependent: :destroy
   has_secure_password validations: false
 

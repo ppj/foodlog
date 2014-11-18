@@ -47,3 +47,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
+
+# To make models voteable
+gem 'voteablize'
+
+# To slugify URLs for SEO
+gem 'sluggit'
