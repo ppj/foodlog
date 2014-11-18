@@ -11,7 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141118085656) do
+ActiveRecord::Schema.define(version: 20141118230321) do
+
+  create_table "comments", force: true do |t|
+    t.string   "body"
+    t.integer  "creator_id"
+    t.integer  "meal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "foods", force: true do |t|
+    t.string   "name"
+    t.integer  "servings"
+    t.integer  "energy"
+    t.float    "fat"
+    t.float    "protein"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "meals", force: true do |t|
     t.string   "title"
@@ -22,6 +40,13 @@ ActiveRecord::Schema.define(version: 20141118085656) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "slug"
+  end
+
+  create_table "plates", force: true do |t|
+    t.integer  "meal_id"
+    t.integer  "food_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -35,6 +60,15 @@ ActiveRecord::Schema.define(version: 20141118085656) do
     t.datetime "updated_at"
     t.string   "slug"
     t.string   "role"
+  end
+
+  create_table "votes", force: true do |t|
+    t.boolean  "vote"
+    t.integer  "user_id"
+    t.integer  "voteable_id"
+    t.string   "voteable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
