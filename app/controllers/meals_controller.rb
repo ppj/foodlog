@@ -8,17 +8,18 @@ class MealsController < ApplicationController
     @meals = Meal.all.sort_by{|x| x.time}.reverse
     respond_to do |format|
       format.html
-      format.json {render json: @posts}
-      format.xml  {render xml:  @posts}
+      format.json {render json: @meals}
+      format.xml  {render xml:  @meals}
     end
 
   end
 
   def show
+    @comment = Comment.new
     respond_to do |format|
       format.html
-      format.json {render json: @post}
-      format.xml  {render xml:  @post}
+      format.json {render json: @meal}
+      format.xml  {render xml:  @meal}
     end
   end
 
@@ -58,6 +59,37 @@ class MealsController < ApplicationController
       flash[:info] = "Meal was deleted"
       redirect_to root_path
     end
+  end
+
+  def vote
+    @vote = Vote.create(vote: params[:vote], creator: current_user, voteable: @meal)
+
+    respond_to do |format|
+      format.html {
+        if @vote.valid?
+          flash[:success] = 'Your vote was cast.'
+        else
+          flash[:danger]  = 'You can vote only once on this meal.'
+        end
+        redirect_to :back
+      }
+      format.js # by default renders the vote.js.erb template in the views/meals folder
+    end
+
+  end
+
+  def vote_destroy
+    @vote = Vote.find_by(creator: current_user, voteable: @meal)
+    @vote.destroy if @vote
+
+    respond_to do |format|
+      format.html {
+        flash[:success] = 'Your vote on that meal was cancelled'
+        redirect_to :back
+      }
+      format.js { render 'vote' }
+    end
+
   end
 
   private

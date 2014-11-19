@@ -22,7 +22,18 @@ Rails.application.routes.draw do
   post '/login',  to: 'sessions#create'
   get  '/logout', to: 'sessions#destroy'
 
-  resources :meals
+  resources :meals do
+    member do
+      post 'vote'
+      delete 'vote/destroy', to: 'meals#vote_destroy'
+    end
+    resources :comments, only: [:create] do
+      member do
+        post 'vote'
+        delete 'vote/destroy', to: 'comments#vote_destroy'
+      end
+    end
+  end
 
   # Example resource route with options:
   #   resources :products do
