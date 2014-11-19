@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
   has_many :meals, dependent: :destroy
   has_secure_password validations: false
+  has_many :comments, dependent: :destroy
+  has_many :votes, dependent: :destroy
 
   validates :username, length: {minimum: 3}, uniqueness: true
   validates :password, on: :create, length: {minimum: 3}
