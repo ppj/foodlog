@@ -13,8 +13,8 @@ class SessionsController < ApplicationController
       flash[:success] = 'You have successfully logged in.'
       redirect_to root_path
     else
-      flash.now[:danger] = 'The username or password you entered is incorrect.'
-      render :new
+      flash[:danger] = 'The username or password you entered is incorrect.'
+      redirect_to :back
     end
 
   end
