@@ -10,7 +10,7 @@ module ApplicationHelper
   def link_based_on_current_users_vote_on_meal(meal_object, value)
     if Vote.find_by(creator: current_user, vote: value, voteable: meal_object)
       link_to vote_destroy_meal_path(meal_object), method: 'delete', remote: true do
-        "<span class='glyphicon glyphicon-fire'></span>".html_safe
+        "<span class='glyphicon glyphicon-remove-circle'></span>".html_safe
       end
     else
       icon = value ? "<span class='glyphicon glyphicon-thumbs-up'></span>" : "<span class='glyphicon glyphicon-thumbs-down'></span>"
@@ -23,7 +23,7 @@ module ApplicationHelper
   def link_based_on_current_users_vote_on_comment(comment_object, value)
     if Vote.find_by(creator: current_user, vote: value, voteable: comment_object)
       link_to vote_destroy_meal_comment_path(comment_object.meal, comment_object), method: 'delete', remote: true do
-        "<span class='glyphicon glyphicon-fire'></span>".html_safe
+        "<span class='glyphicon glyphicon-remove-circle'></span>".html_safe
       end
     else
       icon = value ? "<span class='glyphicon glyphicon-thumbs-up'></span>" : "<span class='glyphicon glyphicon-thumbs-down'></span>"

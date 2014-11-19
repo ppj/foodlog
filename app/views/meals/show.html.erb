@@ -22,6 +22,7 @@
   <%= render 'shared/footer', item: @meal %>
 </p>
 <%= render 'voting', obj: @meal %>
+<hr>
 <p><%= link_to 'Back', meals_path %></p>
 
 <% if logged_in? %>
