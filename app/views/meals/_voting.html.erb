@@ -1,9 +1,7 @@
 <div id='meal_<%= obj.slug %>_votebox'>
   <% if logged_in? %>
     <span id='voteup'><%= link_based_on_current_users_vote_on_meal(obj, true) %></span>
-  <% end %>
-  <span id='votes'><%= "<strong>#{obj.total_votes}</strong> <small>(#{pluralize(obj.votes.size, "Vote")})</small>".html_safe %></span>
-  <% if logged_in? %>
     <span id='votedown'><%= link_based_on_current_users_vote_on_meal(obj, false) %></span>
   <% end %>
+  <span id='votes'><%= "<strong>#{obj.total_votes}</strong> <small>(#{pluralize(obj.votes.size, "Vote")})</small>".html_safe %></span>
 </div>
