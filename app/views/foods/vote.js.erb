@@ -1,0 +1,10 @@
+<% if @vote.valid? %>
+  $('#food_<%= @food.slug %>_votebox > #votes').html("<strong><%= @food.total_votes %></strong> <small>(<%= pluralize(@food.votes.size, "Vote")%>)</small>");
+  <% if @vote.vote %>
+    $('#food_<%= @food.slug %>_votebox > #voteup').html("<%= escape_javascript(link_based_on_current_users_vote_on_food(@food, true) ) %>");
+  <% else %>
+    $('#food_<%= @food.slug %>_votebox > #votedown').html("<%= escape_javascript(link_based_on_current_users_vote_on_food(@food, false) ) %>");
+  <% end %>
+<% else %>
+  alert("You have already voted on that food!");
+<% end %>

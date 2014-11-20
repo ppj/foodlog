@@ -1,18 +1,18 @@
-<% show_meal_title ||= false %>
+<% show_title ||= false %>
 <% comments.each do |comment| %>
   <div class='row'>
     <div class='span8 well well-small'>
       <p>
         "<em><%= comment.body %></em>"
-        <% if show_meal_title %>
+        <% if show_title %>
           on <%= link_to comment.meal.title, meal_path(comment.meal) %>
         <% end %>
       </p>
       <p><%= render 'shared/footer', item: comment %></p>
       <div id='comment_<%= comment.id %>_votebox'>
         <% if logged_in? %>
-          <span id='voteup'><%= link_based_on_current_users_vote_on_comment(comment, true) %></span>
-          <span id='votedown'><%= link_based_on_current_users_vote_on_comment(comment, false) %></span>
+          <span id='voteup'><%= link_based_on_current_users_vote_on_meal_comment(comment, true) %></span>
+          <span id='votedown'><%= link_based_on_current_users_vote_on_meal_comment(comment, false) %></span>
         <% end %>
         <span id='votes'><%= "<strong>#{comment.total_votes}</strong> <small>(#{pluralize(comment.votes.size, "Vote")})</small>".html_safe %></span>
       </div>

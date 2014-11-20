@@ -1,18 +1,20 @@
 class CommentsController < ApplicationController
-
-  before_action :set_meal, except: [:vote]
   before_action :set_comment, except: [:create]
   before_action :require_user
 
   def create
-    @comment = @meal.comments.new(params.require(:comment).permit(:body))
+    commentable_type = params[:comment][:class_name]
+    commentable_class = commentable_type.constantize
+    commentable = commentable_class.find_by slug: params[commentable_type.downcase+'_id']
+    @comment = commentable.comments.new(params.require(:comment).permit(:body))
     @comment.creator = current_user
 
     if @comment.save
       flash[:success] = "New comment added"
-      redirect_to meal_path(@meal)
+      redirect_to :back
     else
-      render 'meals/show'
+      controller = commentable_type.downcase.pluralize
+      render(controller+'/show')
     end
   end
 
@@ -27,7 +29,10 @@ class CommentsController < ApplicationController
         end
         redirect_to :back
       }
-      format.js # by default renders the vote.js.erb template in the comments folder
+      format.js {
+        template = 'vote_'+@comment.commentable_type.downcase
+        render template
+      }
     end
   end
 
@@ -40,15 +45,14 @@ class CommentsController < ApplicationController
         flash[:notice] = 'Your vote on that comment was cancelled'
         redirect_to :back
       }
-      format.js { render 'vote' }
+      format.js {
+        template = 'vote_'+@comment.commentable_type.downcase
+        render template
+      }
     end
   end
 
   private
-
-  def set_meal
-    @meal = Meal.find_by slug: params[:meal_id]
-  end
 
   def set_comment
     @comment = Comment.find(params[:id])

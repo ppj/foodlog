@@ -20,14 +20,40 @@ module ApplicationHelper
     end
   end
 
-  def link_based_on_current_users_vote_on_comment(comment_object, value)
+  def link_based_on_current_users_vote_on_meal_comment(comment_object, value)
     if Vote.find_by(creator: current_user, vote: value, voteable: comment_object)
-      link_to vote_destroy_meal_comment_path(comment_object.meal, comment_object), method: 'delete', remote: true do
+      link_to vote_destroy_meal_comment_path(comment_object.commentable, comment_object), method: 'delete', remote: true do
         "<span class='glyphicon glyphicon-remove-circle'></span>".html_safe
       end
     else
       icon = value ? "<span class='glyphicon glyphicon-thumbs-up'></span>" : "<span class='glyphicon glyphicon-thumbs-down'></span>"
-      link_to vote_meal_comment_path(comment_object.meal, comment_object, vote: value), method: 'post', remote: true do
+      link_to vote_meal_comment_path(comment_object.commentable, comment_object, vote: value), method: 'post', remote: true do
+        icon.html_safe
+      end
+    end
+  end
+
+  def link_based_on_current_users_vote_on_food(food_object, value)
+    if Vote.find_by(creator: current_user, vote: value, voteable: food_object)
+      link_to vote_destroy_food_path(food_object), method: 'delete', remote: true do
+        "<span class='glyphicon glyphicon-remove-circle'></span>".html_safe
+      end
+    else
+      icon = value ? "<span class='glyphicon glyphicon-thumbs-up'></span>" : "<span class='glyphicon glyphicon-thumbs-down'></span>"
+      link_to vote_food_path(food_object, vote: value), method: 'post', remote: true do
+        icon.html_safe
+      end
+    end
+  end
+
+  def link_based_on_current_users_vote_on_food_comment(comment_object, value)
+    if Vote.find_by(creator: current_user, vote: value, voteable: comment_object)
+      link_to vote_destroy_food_comment_path(comment_object.commentable, comment_object), method: 'delete', remote: true do
+        "<span class='glyphicon glyphicon-remove-circle'></span>".html_safe
+      end
+    else
+      icon = value ? "<span class='glyphicon glyphicon-thumbs-up'></span>" : "<span class='glyphicon glyphicon-thumbs-down'></span>"
+      link_to vote_food_comment_path(comment_object.commentable, comment_object, vote: value), method: 'post', remote: true do
         icon.html_safe
       end
     end

@@ -32,9 +32,10 @@
     <br/>
     <%= f.text_area :body, rows: 3, class: 'span4' %>
     <br/>
+    <%= f.hidden_field :class_name, value: 'Meal'  %>
     <%= f.submit 'Add', class: 'btn btn-small btn-primary' %>
   <% end %>
 <% end %>
 
 <h4>Comments:</h4>
-<%= render 'shared/comments', comments: @meal.comments %>
+<%= render 'comments', comments: @meal.comments %>

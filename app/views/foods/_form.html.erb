@@ -1,0 +1,43 @@
+<div class='well'>
+  <%= render 'shared/errors', model_obj: @food %>
+  <%= form_for @food, html: {class: 'form-horizontal', role: 'form'} do |f| %>
+    <div class='form-group'>
+      <%= f.label :name, 'Name', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-4'>
+        <%= f.text_field :name, class: 'form-control', placeholder: 'Bread/Rice/Chicken/Almonds/Mango' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :energy, 'Energy', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :energy, class: 'form-control', placeholder: '200' %>
+      </div>
+      <div style='padding-top: 7px'>Kilo Calories/serving</div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :fat, 'Fat', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :fat, class: 'form-control', placeholder: '3.67' %>
+      </div>
+      <div style='padding-top: 7px'>grams/serving</div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :protein, 'Protein', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-1'>
+        <%= f.text_field :protein, class: 'form-control', placeholder: '1.2' %>
+      </div>
+      <div style='padding-top: 7px'>grams/serving</div>
+    </div>
+    <div class='form-group'>
+      <%= f.label :notes, 'Notes', class: 'col-sm-2 control-label' %>
+      <div class='col-sm-4'>
+        <%= f.text_area :notes, class: 'form-control', placeholder: 'High Beta-Carotene / Serving unit - pieces / Comfort / ...' %>
+      </div>
+    </div>
+    <div class='form-group'>
+      <div class='col-sm-offset-2 col-sm-3'>
+        <%= f.submit @food.new_record? ? "Add Food" : "Change Food", class: 'btn btn-primary'%>
+      </div>
+    </div>
+  <% end %>
+</div>

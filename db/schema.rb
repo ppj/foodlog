@@ -11,24 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141118230321) do
+ActiveRecord::Schema.define(version: 20141120030604) do
 
   create_table "comments", force: true do |t|
     t.string   "body"
     t.integer  "creator_id"
-    t.integer  "meal_id"
+    t.integer  "commentable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "commentable_type"
   end
 
   create_table "foods", force: true do |t|
     t.string   "name"
-    t.integer  "servings"
+    t.string   "notes"
     t.integer  "energy"
     t.float    "fat"
     t.float    "protein"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "slug"
+    t.integer  "creator_id"
   end
 
   create_table "meals", force: true do |t|

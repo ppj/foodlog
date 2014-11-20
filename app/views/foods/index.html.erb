@@ -1,0 +1,6 @@
+<%= render 'shared/title', title: "Recently Added Foods" %>
+
+<% @foods.each do |food| %>
+  <%= render 'food', food: food %>
+<% end %>
+
