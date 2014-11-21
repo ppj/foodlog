@@ -9,7 +9,7 @@
   </p>
 <% end %>
 
-<%= render 'shared/title', title: @meal.title %>
+<%= render 'shared/title', title: @meal.name %>
 
 <p>
   <span class='badge'><%= @meal.category %></span>
@@ -38,4 +38,4 @@
 <% end %>
 
 <h4>Comments:</h4>
-<%= render 'comments', comments: @meal.comments %>
+<%= render 'shared/comments', comments: @meal.comments %>

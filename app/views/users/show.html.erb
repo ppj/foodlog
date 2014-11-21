@@ -1,3 +1,31 @@
-<%= render 'shared/title', title: "#{@user.firstname.empty? ? @user.username : @user.firstname}'s Meals" %>
+<% usertitle = @user.firstname.empty? ? @user.username : @user.firstname %>
+<%= render 'shared/title', title: "Profile: #{usertitle}" %>
 
-<%= render 'shared/meals', list: @user.meals %>
+<div class='well'>
+  <dl class='dl-horizontal'>
+    <dt>Name: </dt>
+    <dd><%= @user.firstname + " " + @user.lastname %></dd>
+    <dt>Time-zone: </dt>
+    <dd><%= @user.timezone %></dd>
+  </dl>
+</div>
+
+<h5><%= usertitle %>'s Activity</h5>
+<ul class="nav nav-tabs">
+    <li class='<%= 'active' unless params[:tab] %>'>
+      <%= link_to "Meals (#{@user.meals.size})", user_path(@user) %>
+    </li>
+    <li class='<%= 'active' if params[:tab]=='foods' %>'>
+      <%= link_to "Foods (#{@user.foods.size})", user_path(@user, tab: 'foods') %>
+    </li>
+    <li class='<%= 'active' if params[:tab]=='comments' %>'>
+      <%= link_to "Comments (#{@user.comments.size})", user_path(@user, tab: 'comments') %>
+    </li>
+</ul>
+<% if params[:tab] == 'comments' %>
+  <%= render 'shared/comments', comments: @user.comments, show_name: true %>
+<% elsif params[:tab] == 'foods' %>
+  <%= render 'shared/foods', foods: @user.foods %>
+<% else %>
+  <%= render 'shared/meals', meals: @user.meals %>
+<% end %>

@@ -1,6 +1,6 @@
 class Meal < ActiveRecord::Base
   include Slugable
-  set_slug_column_to :title
+  set_slug_column_to :name
 
   include Voteable
 
@@ -9,6 +9,6 @@ class Meal < ActiveRecord::Base
   has_many :foods, through: :plates
   has_many :comments, as: :commentable, dependent: :destroy
 
-  validates :title, length: {minimum: 3}
+  validates :name, length: {minimum: 3}
 
 end

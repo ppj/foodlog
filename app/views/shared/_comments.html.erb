@@ -1,0 +1,33 @@
+<% show_name ||= false %>
+<% comments.each do |comment| %>
+  <%
+    item_type = comment.commentable_type
+    if show_name
+      commentable_path = send("#{item_type.downcase}_path", comment.commentable)
+      commentable_link = link_to comment.commentable.name, commentable_path
+      subtext = "on #{comment.commentable_type}: #{commentable_link}"
+    end
+    vote_link_method = "link_based_on_current_users_vote_on_#{item_type.downcase}_comment"
+    vote_up_link   = send(vote_link_method, comment, true)
+    vote_down_link = send(vote_link_method, comment, false)
+  %>
+  <div class='row'>
+    <div class='span8 well well-small'>
+      <p>
+        "<em><%= comment.body %></em>"
+        <% if show_name %>
+          <%= subtext.html_safe %>
+        <% end %>
+      </p>
+      <p><%= render 'shared/footer', item: comment %></p>
+      <div id='comment_<%= comment.id %>_votebox'>
+        <% if logged_in? %>
+          <span id='voteup'><%= vote_up_link %></span>
+          <span id='votedown'><%= vote_down_link %></span>
+        <% end %>
+        <span id='votes'><%= "<strong>#{comment.total_votes}</strong> <small>(#{pluralize(comment.votes.size, "Vote")})</small>".html_safe %></span>
+      </div>
+    </div>
+  </div>
+<% end %>
+
