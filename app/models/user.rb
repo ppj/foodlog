@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   set_slug_column_to :username
 
   has_many :meals, dependent: :destroy
+  has_many :foods
   has_secure_password validations: false
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
