@@ -10,13 +10,21 @@
     <div class='form-group'>
       <%= f.label :category, class: 'col-sm-2 control-label' %>
       <div class='col-sm-3'>
-        <%= f.select :category, options_for_select(['Coffee/Tea', 'Breakfast', 'Brunch', 'Snack', 'Lunch', 'Dinner', 'Supper' ]), class: 'form-control' %>
+        <%= f.select :category, options_for_select(['Coffee/Tea', 'Breakfast', 'Brunch', 'Snack', 'Lunch', 'Dinner', 'Supper' ]), {}, class: 'form-control' %>
       </div>
     </div>
     <div class='form-group'>
       <%= f.label :time, 'Date & Time', class: 'col-sm-2 control-label' %>
       <div class='col-sm-3'>
-        <%= f.datetime_select :time, class: 'form-control' %>
+        <%= f.datetime_select :time, {ampm: true, with_css_classes: true} %>
+      </div>
+    </div>
+    <div id='foods'>
+      <div class='form-group' id = 'food1'>
+        <%= f.label :food1, class: 'col-sm-2 control-label' %>
+        <div class='col-sm-3'>
+          <%= f.collection_select :food_ids, Food.all, :id, :name, {prompt: true}, class: 'form-control' %>
+        </div>
       </div>
     </div>
     <div class='form-group'>
