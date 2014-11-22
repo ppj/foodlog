@@ -28,6 +28,7 @@ class MealsController < ApplicationController
   end
 
   def create
+    meal_params[:time] = DateTime.strptime(meal_params[:time], '%b %d, %Y (%H:%M %p)')
     @meal = Meal.new(meal_params)
     @meal.creator = current_user
 
@@ -95,7 +96,7 @@ class MealsController < ApplicationController
   private
 
   def meal_params
-    params.require(:meal).permit(:name, :category, :description, :time)
+    params.require(:meal).permit(:name, :category, :time, :food_ids, :description)
   end
 
   def set_meal

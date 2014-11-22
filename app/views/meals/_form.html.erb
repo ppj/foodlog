@@ -16,7 +16,11 @@
     <div class='form-group'>
       <%= f.label :time, 'Date & Time', class: 'col-sm-2 control-label' %>
       <div class='col-sm-3'>
-        <%= f.datetime_select :time, {ampm: true, with_css_classes: true} %>
+        <div class='input-group date' id='datetimepicker'>
+          <% meal_time = @meal.new_record? ? Time.now.strftime('%b %d, %Y (%H:%M %p)') : @meal.time.strftime('%b %d, %Y (%H:%M %p)') %>
+          <%= f.datetime_field :time, value: meal_time, class: 'form-control', 'data-date-format'=> "ll (hh:mm a)" %>
+          <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
       </div>
     </div>
     <div id='foods'>

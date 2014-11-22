@@ -47,6 +47,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 # Twitter Bootstrap
 gem 'bootstrap-sass', '~> 3.3.1'
 gem 'autoprefixer-rails'
+# Bootstrap 3+ DateTimePicker
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 # To make models voteable
 gem 'voteablize'
