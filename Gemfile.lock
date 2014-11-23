@@ -63,6 +63,7 @@ GEM
     momentjs-rails (2.8.3)
       railties (>= 3.1)
     multi_json (1.10.1)
+    pg (0.17.1-x86-mingw32)
     pry (0.10.1-x86-mingw32)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -102,7 +103,7 @@ GEM
       rdoc (~> 4.0)
     slop (3.6.0)
     sluggit (0.0.2)
-    spring (1.1.3)
+    spring (1.2.0)
     sprockets (2.11.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -140,6 +141,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   momentjs-rails (>= 2.8.1)
+  pg
   pry
   quiet_assets
   rails (= 4.1.7)
