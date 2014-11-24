@@ -13,6 +13,15 @@ module ApplicationHelper
     meal_time = meal_time.strftime(format)
   end
 
+  def edit_link(edit_path)
+    if logged_in?
+      link_to(edit_path) do
+        "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span>".html_safe
+      end
+    end
+  end
+
+
   def link_based_on_current_users_vote_on_meal(meal_object, value)
     if Vote.find_by(creator: current_user, vote: value, voteable: meal_object)
       link_to vote_destroy_meal_path(meal_object), method: 'delete', remote: true do
