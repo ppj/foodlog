@@ -1,0 +1,6 @@
+<div class='form-group' id = 'food'>
+  <%= label_tag :food, 'Food', class: 'col-sm-2 control-label' %>
+  <div class='col-sm-3'>
+    <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name), {class: 'form-control'} %>
+  </div>
+</div>

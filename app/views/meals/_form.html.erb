@@ -21,18 +21,14 @@
           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
       </div>
-      <script type="text/javascript">
-          $(function () {
-              $('#datetimepicker').datetimepicker();
-          });
-      </script>
     </div>
     <div id='foods'>
-      <div class='form-group' id = 'food1'>
-        <%= f.label :food1, class: 'col-sm-2 control-label' %>
-        <div class='col-sm-3'>
-          <%= f.collection_select :food_ids, Food.all, :id, :name, {prompt: true}, class: 'form-control' %>
-        </div>
+      <%= render 'food_input' %>
+    </div>
+    <div class='form-group'>
+      <div class='col-sm-2 control-label'></div>
+      <div class='col-sm-1'>
+        <%= link_to '+ Food', 'javascript:;', {id: 'addNewFood', class: 'btn btn-sm btn-success form-control'}  %>
       </div>
     </div>
     <div class='form-group'>
@@ -48,3 +44,14 @@
     </div>
   <% end %>
 </div>
+<div class="hide" id="new_food_input">
+  <%= render 'food_input' %>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#datetimepicker').datetimepicker();
+    $("#addNewFood").click(function(){
+      $("#foods").append($("#new_food_input").html());
+    });
+  });
+</script>
