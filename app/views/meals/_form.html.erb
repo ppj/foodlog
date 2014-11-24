@@ -17,8 +17,7 @@
       <%= f.label :time, 'Date & Time', class: 'col-sm-2 control-label' %>
       <div class='col-sm-3'>
         <div class='input-group date' id='datetimepicker'>
-          <% meal_time = @meal.new_record? ? Time.now.strftime('%b %d, %Y (%H:%M %p)') : @meal.time.strftime('%b %d, %Y (%H:%M %p)') %>
-          <%= f.datetime_field :time, value: meal_time, class: 'form-control', 'data-date-format'=> "ll (hh:mm a)" %>
+          <%= f.datetime_field :time, value: get_meal_time(@meal), class: 'form-control', 'data-date-format'=> "ll (hh:mm a)" %>
           <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
         </div>
       </div>

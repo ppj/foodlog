@@ -7,6 +7,14 @@ module ApplicationHelper
     time.strftime("(%d-%b-%Y %l:%M%P %Z)")
   end
 
+  def get_meal_time(meal)
+    meal_time = meal.new_record? ? Time.zone.now : meal.time
+    if logged_in?
+      meal_time = meal_time.in_time_zone(current_user.timezone)
+    end
+    meal_time = meal_time.strftime('%b %d, %Y (%H:%M %p)')
+  end
+
   def link_based_on_current_users_vote_on_meal(meal_object, value)
     if Vote.find_by(creator: current_user, vote: value, voteable: meal_object)
       link_to vote_destroy_meal_path(meal_object), method: 'delete', remote: true do
