@@ -7,12 +7,10 @@ module ApplicationHelper
     time.strftime("(%d-%b-%Y %l:%M%P %Z)")
   end
 
-  def get_meal_time(meal)
-    meal_time = meal.new_record? ? Time.zone.now : meal.time
-    if logged_in?
-      meal_time = meal_time.in_time_zone(current_user.timezone)
-    end
-    meal_time = meal_time.strftime('%b %d, %Y (%H:%M %p)')
+  def get_meal_time(meal, format)
+    meal_time = meal.new_record? ? Time.now : meal.time
+    meal_time = meal_time.in_time_zone(current_user.timezone) if logged_in?
+    meal_time = meal_time.strftime(format)
   end
 
   def link_based_on_current_users_vote_on_meal(meal_object, value)
