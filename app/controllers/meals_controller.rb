@@ -1,6 +1,7 @@
 class MealsController < ApplicationController
 
   before_action :set_meal,     except: [:index, :new, :create]
+  before_action :set_time,     only: [:create, :udpate]
   before_action :require_user, except: [:index, :show]
   before_action :require_creator_or_admin, only:   [:edit, :update, :destroy]
 
@@ -28,7 +29,6 @@ class MealsController < ApplicationController
   end
 
   def create
-    meal_params[:time] = DateTime.strptime(meal_params[:time], '%b %d, %Y (%H:%M %p)')
     @meal = Meal.new(meal_params)
     @meal.creator = current_user
 
@@ -45,7 +45,6 @@ class MealsController < ApplicationController
   end
 
   def update
-
     if @meal.update(meal_params)
       flash[:success] = "Meal changed successfully!"
       redirect_to meals_path
@@ -101,6 +100,10 @@ class MealsController < ApplicationController
 
   def set_meal
     @meal = Meal.find_by(slug: params[:id])
+  end
+
+  def set_time
+    meal_params[:time] = DateTime.strptime(meal_params[:time], '%b %d, %Y (%H:%M %p)')
   end
 
   def require_creator_or_admin
