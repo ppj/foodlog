@@ -3,7 +3,7 @@
 <div class='form-group food'>
   <%= label_tag :food, 'Food', class: 'col-sm-2 control-label' %>
   <div class='col-sm-3'>
-    <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name, selected_id), {class: 'form-control'} %>
+    <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name, selected_id), {class: 'form-control', prompt: 'Select Food'} %>
   </div>
   <%  if show_remove  %>
     <div class='col-sm-1'>
