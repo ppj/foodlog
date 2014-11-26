@@ -1,6 +1,21 @@
+<% show_remove ||= false %>
 <div class='form-group' id = 'food'>
   <%= label_tag :food, 'Food', class: 'col-sm-2 control-label' %>
   <div class='col-sm-3'>
     <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name), {class: 'form-control'} %>
   </div>
+  <%  if show_remove  %>
+  <div class='col-sm-1'>
+    <%= button_to 'javascript:;', {id: 'removeFood', class: 'btn btn-sm btn-warning form-control', remote: true} do %>
+      <span class="glyphicon glyphicon-remove"></span>
+    <% end %>
+  </div>
+  <% end %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('div#food').on('click', 'button#removeFood', function(events){
+        $(this).parents('div').eq(2).remove();
+      });
+    });
+  </script>
 </div>

@@ -45,11 +45,12 @@
   <% end %>
 </div>
 <div class="hide" id="new_food_input">
-  <%= render 'food_input' %>
+  <%= render 'food_input', show_remove: true %>
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datetimepicker').datetimepicker();
+
     $("#addNewFood").click(function(){
       $("#foods").append($("#new_food_input").html());
     });
