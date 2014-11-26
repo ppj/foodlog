@@ -10,7 +10,7 @@
     <div class='form-group'>
       <%= f.label :category, class: 'col-sm-2 control-label' %>
       <div class='col-sm-3'>
-        <%= f.select :category, options_for_select(Meal::Categories), {}, class: 'form-control' %>
+        <%= f.select :category, options_for_select(Meal::Categories, @meal.category), {}, class: 'form-control' %>
       </div>
     </div>
     <div class='form-group'>
