@@ -1,18 +1,19 @@
 <% show_remove ||= false %>
+<% selected_id ||= nil %>
 <div class='form-group food'>
   <%= label_tag :food, 'Food', class: 'col-sm-2 control-label' %>
   <div class='col-sm-3'>
-    <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name), {class: 'form-control'} %>
+    <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name, selected_id), {class: 'form-control'} %>
   </div>
   <%  if show_remove  %>
     <div class='col-sm-1'>
-      <%= button_to 'javascript:;', class: 'btn btn-sm btn-warning form-control removeFood', remote: true do %>
+      <%= link_to 'javascript:;', class: 'btn btn-sm btn-warning form-control removeFoodButton', remote: true do %>
         <span class="glyphicon glyphicon-remove"></span>
       <% end %>
     </div>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('div.food').on('click', 'button.removeFood', function(events){
+        $('div.food').on('click', '.removeFoodButton', function(events){
           $(this).parents('div.food').remove();
         });
       });

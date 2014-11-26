@@ -23,11 +23,18 @@
       </div>
     </div>
     <div id='foods'>
-      <%= render 'food_input' %>
+      <% if @meal.food_ids.empty? %>
+        <%= render 'food_input' %>
+      <% else %>
+        <% show_remove = false %>
+        <% @meal.food_ids.each do |food_id| %>
+          <%= render 'food_input', selected_id: food_id, show_remove: show_remove %>
+          <% show_remove = true %>
+        <% end %>
+      <% end %>
     </div>
     <div class='form-group'>
-      <div class='col-sm-2 control-label'></div>
-      <div class='col-sm-1'>
+      <div class='col-sm-offset-2 col-sm-1'>
         <%= link_to '+ Food', 'javascript:;', {id: 'addNewFood', class: 'btn btn-sm btn-success form-control'}  %>
       </div>
     </div>
