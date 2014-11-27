@@ -31,6 +31,7 @@ class MealsController < ApplicationController
   def create
     @meal = Meal.new(meal_params)
     @meal.creator = current_user
+    assign_serving_sizes
 
     if @meal.save
       flash[:success] = "Meal added successfully!"
@@ -45,6 +46,7 @@ class MealsController < ApplicationController
   end
 
   def update
+    assign_serving_sizes
     if @meal.update(meal_params)
       flash[:success] = "Meal changed successfully!"
       redirect_to meals_path
@@ -108,6 +110,13 @@ class MealsController < ApplicationController
 
   def require_creator_or_admin
     access_denied "You cannot make changes to this meal!" unless logged_in? and (current_user == @meal.creator or current_user.admin?)
+  end
+
+  def assign_serving_sizes
+    @meal.plates.each_with_index do |plate, index|
+      plate.servings = params[:food_servings][index]
+      plate.save
+    end
   end
 
 end

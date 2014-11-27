@@ -28,7 +28,8 @@
       <% else %>
         <% show_remove = false %>
         <% @meal.food_ids.each do |food_id| %>
-          <%= render 'food_input', selected_id: food_id, show_remove: show_remove %>
+          <% serving_size = @meal.plates.find_by(food_id: food_id).servings %>
+          <%= render 'food_input', selected_id: food_id, show_remove: show_remove, serving_size: serving_size %>
           <% show_remove = true %>
         <% end %>
       <% end %>

@@ -1,9 +1,16 @@
-<% show_remove ||= false %>
-<% selected_id ||= nil %>
+<% show_remove  ||= false %>
+<% selected_id  ||= nil %>
+<% serving_size ||= nil %>
 <div class='form-group food'>
   <%= label_tag :food, 'Food', class: 'col-sm-2 control-label' %>
-  <div class='col-sm-3'>
+  <div class='col-sm-2'>
     <%= select_tag 'meal[food_ids][]', options_from_collection_for_select(Food.all, :id, :name, selected_id), {class: 'form-control', prompt: 'Select Food'} %>
+  </div>
+  <div class='col-sm-2'>
+    <div class='form-control'>
+    <%= label_tag :servings, 'Servings: '%>
+    <%= select_tag 'food_servings[]', options_for_select( 1..10, serving_size ) %>
+    </div>
   </div>
   <%  if show_remove  %>
     <div class='col-sm-1'>
