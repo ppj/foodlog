@@ -1,25 +1,67 @@
 <%= render 'shared/title_with_edit_links', args: {title: @meal.name, edit_path: edit_meal_path(@meal), show_path: meal_path(@meal)} %>
 
-<p>
-  <span class='badge'><%= @meal.category %></span>
-</p>
+<p><strong>Had at <%= @meal.time.strftime('%I:%M %P, on %b %d, %Y') %> for <span class='badge'><%= @meal.category %></span></strong></p>
 
-<p><%= @meal.description %></p>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title">
+      Description: <%= @meal.description %>
+    </div>
+  </div>
+  <div class='panel-body'>
+    <table class="table table-bordered table-hover table-responsive">
+      <tbody>
+        <tr>
+          <th>Food</th>
+          <th>Energy (Kcal/serving)</th>
+          <th>Fat (grams/serving)</th>
+          <th>Protein (grams/serving)</th>
+          <th>Servings</th>
+        </tr>
+        <% total_energy  = 0 %>
+        <% total_fat     = 0 %>
+        <% total_protein = 0 %>
+        <% @meal.foods.each do |food| %>
+          <% servings = food.plates.find_by(meal: @meal).servings %>
+          <tr>
+            <td><%= link_to food.name, food_path(food) %></td>
+            <td><%= food.energy %></td>
+            <td><%= food.fat %></td>
+            <td><%= food.protein %></td>
+            <td><%= servings %></td>
+          </tr>
+          <% total_energy  += servings*food.energy %>
+          <% total_fat     += servings*food.fat %>
+          <% total_protein += servings*food.protein %>
+        <% end %>
+        <tr>
+          <td><strong>Total</strong></td>
+          <td><strong><%= total_energy %></strong></td>
+          <td><strong><%= total_fat %></strong></td>
+          <td><strong><%= total_protein %></strong></td>
+          <td><strong></strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="panel-footer">
+    <p>
+      <%= render 'shared/footer', item: @meal %>
+    </p>
+    <%= render 'voting', obj: @meal %><br>
+    <p><%= link_to 'Back to all meals', meals_path %></p>
+  </div>
+</div>
+
 <hr/>
 
-<p>
-  <%= render 'shared/footer', item: @meal %>
-</p>
-<%= render 'voting', obj: @meal %>
-<hr>
-<p><%= link_to 'Back', meals_path %></p>
 
 <% if logged_in? %>
   <%= render 'shared/errors', model_obj: @comment %>
   <%= form_for [@meal, @comment] do |f| %>
     <strong><%= f.label :body, "New Comment:" %></strong>
     <br/>
-    <%= f.text_area :body, rows: 3, class: 'span4' %>
+    <%= f.text_area :body, rows: 2, class: 'span4' %>
     <br/>
     <%= f.hidden_field :class_name, value: 'Meal'  %>
     <%= f.submit 'Add', class: 'btn btn-small btn-primary' %>
