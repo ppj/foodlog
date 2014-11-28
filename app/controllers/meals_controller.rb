@@ -113,9 +113,15 @@ class MealsController < ApplicationController
   end
 
   def assign_serving_sizes
-    @meal.plates.each_with_index do |plate, index|
+    meal_params[:food_ids].each_with_index do |food_id, index|
+      plate = @meal.plates[index] || Plate.new
+      plate.food_id = food_id
       plate.servings = params[:food_servings][index]
-      plate.save
+      if plate.new_record?
+        @meal.plates << plate
+      else
+        plate.save
+      end
     end
   end
 
