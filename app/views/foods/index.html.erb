@@ -2,6 +2,8 @@
 
 <%= render 'shared/foods', foods: @foods %>
 
-<%= link_to new_food_path do %>
-  <% button_tag 'Add New Food', class: 'btn btn-success' %>
+<% if logged_in? %>
+  <%= link_to new_food_path do %>
+    <% button_tag 'Add New Food', class: 'btn btn-success' %>
+  <% end %>
 <% end %>
