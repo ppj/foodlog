@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  root 'meals#index'
+  root 'sessions#welcome'
 
   get '/register', to: 'users#new'
   resources :users, only: [:show, :create, :edit, :update]
 
-  get  '/login',  to: 'sessions#new'
   post '/login',  to: 'sessions#create'
   get  '/logout', to: 'sessions#destroy'
 
