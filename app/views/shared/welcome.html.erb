@@ -2,25 +2,39 @@
 <div class="jumbotron">
   <h1>Diet Diary</h1>
   <p class="lead">A simple way to keep track of what you eat!</p>
+  <ul>
+    <li>Add foods & nutritional information</li>
+    <li>Add meals & start tracking!</li>
+  </ul>
 </div>
-<div class="col-lg-4 text-center">
-  <%= link_to meals_path, {class: "btn btn-lg btn-danger", role: 'button'} do %>
-    <h4><span class="glyphicon glyphicon-book" aria-hidden="true"></span> View All Meals</h4>
-  <% end %>
+<div class='container'>
+  <div class='well well-lg row'>
+    <div class="col-lg-4 text-center">
+      <%= link_to meals_path, {class: "btn btn-lg btn-danger", role: 'button'} do %>
+        <h4><span class="glyphicon glyphicon-book" aria-hidden="true"></span> View All Meals</h4>
+      <% end %>
+    </div>
+    <div class="col-lg-4 text-center">
+      <%= link_to foods_path, {class: "btn btn-lg btn-success", role: 'button'} do %>
+        <h4><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> View All Foods</h4>
+      <% end %>
+    </div>
+    <div class="col-lg-4 text-center">
+      <% if logged_in? %>
+        <%= link_to user_path(current_user), {class: "btn btn-lg btn-primary", role: 'button'} do %>
+          <h4><span class="glyphicon glyphicon-user" aria-hidden="true"></span> My Activity</h4>
+        <% end %>
+      <% else %>
+        <%= link_to register_path, {class: "btn btn-lg btn-primary", role: 'button'} do %>
+          <h4><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> Sign Up Now</h4>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
-<div class="col-lg-4 text-center">
-  <%= link_to foods_path, {class: "btn btn-lg btn-success", role: 'button'} do %>
-    <h4><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> View All Foods</h4>
-  <% end %>
-</div>
-<div class="col-lg-4 text-center">
-  <% if logged_in? %>
-    <%= link_to user_path(current_user), {class: "btn btn-lg btn-primary", role: 'button'} do %>
-      <h4><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Your Activity</h4>
-    <% end %>
-  <% else %>
-    <%= link_to register_path, {class: "btn btn-lg btn-primary", role: 'button'} do %>
-      <h4><span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span> Sign Up Now</h4>
-    <% end %>
-  <% end %>
+<div class='navbar navbar-default navbar-fixed-bottom'>
+  <div class='container'>
+    <p class='navbar-text pull-left'>Built by <%= link_to 'Prasanna', 'http://github.com/ppj' %></p>
+    <p class='navbar-text pull-right'><%= link_to 'Blog', 'http://ppj.github.io' %></p>
+  </div>
 </div>
