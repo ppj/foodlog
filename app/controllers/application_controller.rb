@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   def access_denied(msg)
     flash[:danger] = msg
-    redirect_to root_path
+    redirect_to meals_path
   end
 
 end

@@ -59,7 +59,7 @@ class MealsController < ApplicationController
   def destroy
     if @meal.destroy
       flash[:info] = "Meal was deleted"
-      redirect_to root_path
+      redirect_to meals_path
     end
   end
 
