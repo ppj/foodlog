@@ -2,6 +2,7 @@ class FoodsController < ApplicationController
 
   before_action :set_food, except: [:index, :new, :create]
   before_action :require_user, except: [:index, :show]
+  before_action :require_creator_or_admin, only:   [:edit, :update, :destroy]
 
   def new
     @food = Food.new
@@ -45,6 +46,10 @@ class FoodsController < ApplicationController
   end
 
   def destroy
+    if @food.destroy
+      flash[:info] = "Food was deleted"
+      redirect_to foods_path
+    end
   end
 
   def vote
@@ -88,5 +93,8 @@ class FoodsController < ApplicationController
     @food = Food.find_by slug: params[:id]
   end
 
+  def require_creator_or_admin
+    access_denied "You cannot make changes to this food!" unless logged_in? and (current_user == @food.creator or current_user.admin?)
+  end
 
 end
