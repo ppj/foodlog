@@ -23,13 +23,12 @@
       </div>
     </div>
     <div id='foods'>
-      <% if @meal.food_ids.empty? %>
+      <% if @meal.plates.empty? %>
         <%= render 'food_input' %>
       <% else %>
         <% show_remove = false %>
-        <% @meal.food_ids.each do |food_id| %>
-          <% serving_size = @meal.plates.find_by(food_id: food_id).servings %>
-          <%= render 'food_input', selected_id: food_id, show_remove: show_remove, serving_size: serving_size %>
+        <% @meal.plates.each do |plate| %>
+          <%= render 'food_input', selected_id: plate.food_id, show_remove: show_remove, serving_size: plate.servings %>
           <% show_remove = true %>
         <% end %>
       <% end %>

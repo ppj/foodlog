@@ -4,7 +4,7 @@
     <div class='span8 well'>
       <span class='badge'><%= meal.category %></span>
       <h4><%= link_to meal.name, meal_path(meal) %></h4>
-      <p>Contents: <%= meal.foods.map {|food| "#{food.name} (#{Plate.find_by(meal: meal, food: food).servings})"}.join("; ") %>
+      <p>Contents: <%= meal.plates.map {|plate| "#{plate.food.name} (#{plate.servings})"}.join("; ") %>
       </p>
       <p>Description: <%= meal.description %></p>
       <p>

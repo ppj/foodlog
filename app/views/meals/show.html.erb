@@ -21,18 +21,17 @@
         <% total_energy  = 0 %>
         <% total_fat     = 0 %>
         <% total_protein = 0 %>
-        <% @meal.foods.each do |food| %>
-          <% servings = food.plates.find_by(meal: @meal).servings %>
+        <% @meal.plates.each do |plate| %>
           <tr>
-            <td><%= link_to food.name, food_path(food) %></td>
-            <td><%= food.energy %></td>
-            <td><%= food.fat %></td>
-            <td><%= food.protein %></td>
-            <td><%= servings %></td>
+            <td><%= link_to plate.food.name, food_path(plate.food) %></td>
+            <td><%= plate.food.energy %></td>
+            <td><%= plate.food.fat %></td>
+            <td><%= plate.food.protein %></td>
+            <td><%= plate.servings %></td>
           </tr>
-          <% total_energy  += servings*food.energy %>
-          <% total_fat     += servings*food.fat %>
-          <% total_protein += servings*food.protein %>
+          <% total_energy  += plate.servings*plate.food.energy %>
+          <% total_fat     += plate.servings*plate.food.fat %>
+          <% total_protein += plate.servings*plate.food.protein %>
         <% end %>
         <tr>
           <td><strong>Total</strong></td>
