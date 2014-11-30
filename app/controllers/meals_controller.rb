@@ -31,7 +31,7 @@ class MealsController < ApplicationController
   def create
     @meal = Meal.new(meal_params)
     @meal.creator = current_user
-    assign_serving_sizes
+    fill_plates!
 
     if @meal.save
       flash[:success] = "Meal added successfully!"
@@ -46,7 +46,7 @@ class MealsController < ApplicationController
   end
 
   def update
-    assign_serving_sizes
+    fill_plates!
     if @meal.update(meal_params)
       flash[:success] = "Meal changed successfully!"
       redirect_to meals_path
@@ -97,7 +97,7 @@ class MealsController < ApplicationController
   private
 
   def meal_params
-    params.require(:meal).permit(:name, :category, :time, :description, food_ids: [])
+    params.require(:meal).permit(:name, :category, :time, :description)
   end
 
   def set_meal
@@ -112,9 +112,9 @@ class MealsController < ApplicationController
     access_denied "You cannot make changes to this meal!" unless logged_in? and (current_user == @meal.creator or current_user.admin?)
   end
 
-  def assign_serving_sizes
+  def fill_plates!
     plate_index = 0
-    meal_params[:food_ids].each do |food_id|
+    params[:food_ids].each do |food_id|
       plate = @meal.plates[plate_index] || Plate.new
       plate.food_id = food_id
       plate.servings = params[:food_servings][plate_index]
@@ -126,7 +126,8 @@ class MealsController < ApplicationController
       plate_index += 1
     end
     (plate_index..(@meal.plates.size-1)).each do |extra_plate_index|
-      @meal.plates[extra_plate_index].destroy
+      plate = @meal.plates[extra_plate_index]
+      @meal.plates.destroy(plate)
     end
   end
 

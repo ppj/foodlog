@@ -15,5 +15,5 @@ class Meal < ActiveRecord::Base
 
   validates :category, inclusion: { in: Categories, message: "'%{value}' is not valid" }
 
-  validates :foods, length: { minimum: 1, message: "cannot be empty (at least 1 food needs to be selected)" }
+  validates :plates, length: { minimum: 1, message: "cannot be empty (at least 1 food needs to be selected)" }
 end
